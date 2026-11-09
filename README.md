@@ -1,29 +1,65 @@
 # BizPilot
 
-BizPilot is a web app starter focused on three modules:
+BizPilot is a web app for small businesses, focused on AI inventory management, an online shop, marketing and an AI business assistant.
 
-- **AI inventory workspace:** product catalogue, stock quantities, low-stock warnings and stock-cost overview.
-- **Online shop:** storefront profile and product preview, including social contact details.
-- **Marketing:** campaign-copy builder and downloadable promotional text.
+## Included workflows
 
-## Run locally
+1. Create an account and set up a business workspace with a business type and description.
+2. Add products with SKU, category, purchase cost, selling price, quantity and low-stock threshold.
+3. Track inventory levels and review low-stock alerts.
+4. Publish selected products to a public shop and add social media contact details.
+5. Receive customer orders through the public storefront; order submission validates the current product prices and stock on the server and deducts stock atomically.
+6. Manage online order status from pending through fulfilment.
+7. Generate channel-specific marketing content using the Supabase `generate-marketing` Edge Function.
+8. Ask the BizPilot AI assistant for data-grounded inventory and business recommendations.
+
+## Supabase project
+
+This frontend is connected to the BizPilot Supabase project. Browser code uses the public publishable key only. Row Level Security protects workspace data.
+
+Database additions were applied to the connected Supabase project:
+- Business type, business description, public shop slug/status and social handles.
+- Product shop visibility and image URL fields.
+- Secure `store_orders` table.
+- `create_business_workspace` onboarding RPC.
+- `submit_store_order` server-side order RPC, callable only by service_role.
+
+Deployed Edge Functions:
+- `generate-marketing` (existing AI marketing integration)
+- `bizpilot-assistant` (authenticated business assistant)
+- `public-store` (public shop read and customer order submission)
+
+## Local development
 
 1. Install Node.js.
 2. Run `npm install`.
-3. Run `npm run dev`.
-4. Open the local URL printed by Vite.
+3. Copy `.env.example` to `.env` if you want to override the built-in Supabase URL/key.
+4. Run `npm run dev`.
 
-## Supabase foundation
+## Required Supabase Edge Function secrets
 
-The initial database schema is in `supabase/schema.sql`. Apply it in the Supabase SQL Editor when setting up the backend. The frontend currently uses sample in-browser data; database persistence and authentication still need to be connected and tested.
+Check Supabase Dashboard → Edge Functions → Secrets:
+- `OPENAI_API_KEY` — required for live AI marketing and the assistant.
+- `SUPABASE_SERVICE_ROLE_KEY` — needed by the public-store function (server-side only; never put it in browser code).
+- `APP_ORIGIN` — set to the exact deployed app origin for the AI functions' CORS response.
 
-## Important launch checklist
+Supabase automatically provides project URL and API key environment variables to deployed functions. Do not place any server-side secret in a frontend `.env` file or GitHub.
 
-- Connect authentication and all inventory/shop screens to Supabase.
-- Create a secure public storefront and order-submission Edge Function. Do not make the orders table publicly writable.
-- Connect an AI provider through a server-side Edge Function; never expose an AI secret key in browser code.
-- Add image generation/storage for e-flyers and test image rights and file limits.
-- Add checkout/payment integration only after the order workflow is secured.
-- Configure environment variables in the hosting provider and test a production build.
+## Cloudflare Pages
 
-**Status:** UI starter scaffold, not yet production-ready. The marketing copy generator currently uses a local template and is not live AI.
+Build command: `npm run build`
+
+Build output directory: `dist`
+
+Set the following Cloudflare Pages environment variables if overriding the built-in public values:
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_PUBLISHABLE_KEY`
+
+## Important production checks
+
+- Verify that OpenAI secrets are configured before using AI features.
+- Configure `APP_ORIGIN` to the exact production domain and tighten the public-store CORS allowlist to that domain before public launch.
+- Add rate limiting / bot protection to public order intake before promoting the shop widely.
+- Payment checkout is not yet connected to online store orders. Orders are submitted as pending and require manual confirmation.
+- Image generation and automatic social publishing are not yet implemented; marketing currently generates text.
+- Run end-to-end tests with a real user, product, storefront and order before launch.
