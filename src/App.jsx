@@ -86,7 +86,8 @@ export default function App(){
  const filtered=useMemo(()=>products.filter(p=>(p.name+" "+(p.sku||"")+" "+(p.category||"")).toLowerCase().includes(search.toLowerCase())),[products,search]);
  const low=products.filter(p=>Number(p.quantity)<=Number(p.low_stock_threshold||5)),stock=products.reduce((s,p)=>s+Number(p.quantity)*Number(p.cost_kobo||0),0);
  const salesValue=sales.filter(s=>s.status==="completed").reduce((s,x)=>s+Number(x.total_kobo||0),0);
- if(typeof window!=="undefined"&&window.location.pathname==="/admin")return <AdminPortal/>;\n if(typeof window!=="undefined"&&window.location.pathname.startsWith("/shop/"))return <PublicShop slug={decodeURIComponent(window.location.pathname.split("/")[2]||"")}/>;
+ if(typeof window!=="undefined"&&window.location.pathname==="/admin")return <AdminPortal/>;
+ if(typeof window!=="undefined"&&window.location.pathname.startsWith("/shop/"))return <PublicShop slug={decodeURIComponent(window.location.pathname.split("/")[2]||"")}/>;
  if(!supabase)return <div className="auth-screen"><div className="auth-card"><h1>BizPilot</h1><p>Supabase connection is not configured. Add the project URL and publishable key to your deployment environment.</p></div></div>;
  if(!user&&!showAuth)return <div className="landing-page">
   <header className="landing-nav"><a className="landing-brand" href="#"><span className="brand-icon">B</span> BizPilot</a><div className="landing-nav-actions"><button className="landing-signin" onClick={()=>{setAuthMode("signin");setShowAuth(true)}}>Log in</button><button className="primary" onClick={()=>{setAuthMode("signup");setShowAuth(true)}}>Get started <ArrowUpRight size={16}/></button></div></header>
