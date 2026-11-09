@@ -1,16 +1,29 @@
 # BizPilot
 
-AI-powered inventory, online shop and marketing workspace.
+BizPilot is a web app starter focused on three modules:
 
-## Core modules
-- Inventory and stock alerts
-- Public storefront and customer orders
-- Marketing campaign copy and e-flyer preparation
+- **AI inventory workspace:** product catalogue, stock quantities, low-stock warnings and stock-cost overview.
+- **Online shop:** storefront profile and product preview, including social contact details.
+- **Marketing:** campaign-copy builder and downloadable promotional text.
 
-## Setup
-1. Install dependencies with `npm install`.
-2. Copy `.env.example` to `.env` and add your Supabase project URL and anon key.
+## Run locally
+
+1. Install Node.js.
+2. Run `npm install`.
 3. Run `npm run dev`.
-4. Apply `supabase/schema.sql` in the Supabase SQL Editor.
+4. Open the local URL printed by Vite.
 
-AI copy generation is currently a guided template workflow; connect a secure server-side AI provider before describing it as live AI. Public checkout/payment processing also requires a secure backend and payment integration.
+## Supabase foundation
+
+The initial database schema is in `supabase/schema.sql`. Apply it in the Supabase SQL Editor when setting up the backend. The frontend currently uses sample in-browser data; database persistence and authentication still need to be connected and tested.
+
+## Important launch checklist
+
+- Connect authentication and all inventory/shop screens to Supabase.
+- Create a secure public storefront and order-submission Edge Function. Do not make the orders table publicly writable.
+- Connect an AI provider through a server-side Edge Function; never expose an AI secret key in browser code.
+- Add image generation/storage for e-flyers and test image rights and file limits.
+- Add checkout/payment integration only after the order workflow is secured.
+- Configure environment variables in the hosting provider and test a production build.
+
+**Status:** UI starter scaffold, not yet production-ready. The marketing copy generator currently uses a local template and is not live AI.
