@@ -12,3 +12,65 @@
 
 /* Google authentication and persistent sign-out controls */
 .google-btn{width:100%;min-height:46px;display:flex;align-items:center;justify-content:center;gap:11px;background:#fff;border:1px solid #dfe4ec;border-radius:9px;color:#283548;font-size:13px;font-weight:700}.google-btn:hover{background:#f8f9fc}.google-btn:disabled{opacity:.6;cursor:wait}.google-btn svg{width:19px;height:19px}.auth-divider{display:flex;align-items:center;gap:12px;color:#9aa4b2;font-size:9px;font-weight:800;letter-spacing:.8px}.auth-divider:before,.auth-divider:after{content:"";height:1px;background:#edf0f5;flex:1}.topbar-actions{display:flex;align-items:center;gap:12px}.topbar-logout{display:inline-flex;align-items:center;gap:7px;border:1px solid #e7eaf0;background:white;color:#5b6677;border-radius:8px;padding:8px 11px;font-size:11px;font-weight:700}.topbar-logout:hover{background:#fff4f2;color:#b64c42}.topbar-logout:disabled{opacity:.6}@media(max-width:520px){.topbar-actions{gap:6px}.topbar-logout{padding:7px 8px;font-size:10px}.topbar-logout svg{width:13px}}
+
+
+/* BizPilot refreshed green-and-white interface */
+:root{font-family:'DM Sans',sans-serif;color:#18352b;background:#f5f8f5;--bp-green:#176b45;--bp-green-dark:#104b34;--bp-sage:#e8f2eb;--bp-line:#e3ebe5;--bp-muted:#718278}
+body{background:#f5f8f5;color:#18352b}
+.sidebar{background:#fff;color:#355347;border-right:1px solid var(--bp-line);box-shadow:8px 0 30px #153d2610}
+.brand{color:var(--bp-green-dark)}
+.brand-icon{background:var(--bp-green);color:#fff}
+.workspace{background:#f4f8f4;border:1px solid var(--bp-line)}
+.avatar{background:#dceee2;color:var(--bp-green)}
+.workspace small,.side-note small{color:#819287}
+.sidebar .nav{color:#61776b}
+.sidebar .nav.active,.sidebar .nav:hover{background:#e8f3eb;color:var(--bp-green-dark)}
+.nav-group-label{color:#91a399}
+.side-note{background:#f0f7f1;color:#355347;border:1px solid var(--bp-line)}
+.side-note svg{color:var(--bp-green)}
+.main{min-width:0;min-height:100vh;margin-left:250px}
+.topbar{background:#fff;border-bottom-color:var(--bp-line);color:#718278}
+.topbar b{color:#244a37}
+.preview{background:#e8f3eb;color:var(--bp-green)}
+.content{padding-top:32px}
+.eyebrow,.landing-kicker,.landing-section-heading>span,.landing-bottom>div>span{color:var(--bp-green)}
+.primary{background:var(--bp-green);color:#fff}
+.primary:hover{background:var(--bp-green-dark)}
+.secondary{background:#e8f3eb;color:var(--bp-green)}
+.light{color:var(--bp-green)}
+.stats article,.panel{border-color:var(--bp-line);box-shadow:0 5px 20px #193d2708;border-radius:15px}
+.stats article svg{color:var(--bp-green)}
+.product-icon,.feature-icon{background:#e8f3eb;color:var(--bp-green)}
+.good{background:#e6f4e9;color:#267247}
+.banner{background:linear-gradient(110deg,#176b45,#3b9467)}
+.banner p{color:#e5f4e9}
+.form input:focus,.form textarea:focus,.modal input:focus{border-color:#58a77a;box-shadow:0 0 0 3px #176b4514}
+.text-btn{color:var(--bp-green)}
+.generated{background:#f2f8f3;border-color:#e2eee4;color:#294c38}
+.pipeline-row b,.public-products article strong{color:var(--bp-green)}
+.store-logo{background:var(--bp-green)}
+.cart-controls button{background:#e8f3eb;color:var(--bp-green)}
+.landing-page{background:#f8fbf8;color:#18352b}
+.landing-copy h1 em{color:var(--bp-green)}
+.landing-trust svg{color:#26834e}
+.mock-welcome small{color:var(--bp-green)}
+.mock-bar{background:#e8f3eb}.mock-bar i{background:linear-gradient(90deg,#176b45,#83bd91)}
+.mock-ai{background:#edf6ef;color:var(--bp-green)}
+.feature-icon{background:#e8f3eb;color:var(--bp-green)}
+.landing-bottom{background:#edf6ef;border-color:#deebdf}
+.google-btn{border-color:var(--bp-line)}
+.topbar-logout{border-color:var(--bp-line);color:#456453}
+.topbar-logout:hover{background:#f0f7f1;color:var(--bp-green-dark)}
+.sidebar-backdrop,.mobile-menu{display:none}
+.topbar-left{display:flex;align-items:center;gap:12px}
+@media(max-width:950px){.sidebar{width:250px}.main{margin-left:250px}}
+@media(max-width:650px){
+ .sidebar{width:min(290px,86vw);transform:translateX(-105%);transition:transform .22s ease;box-shadow:12px 0 35px #173b251c}
+ .sidebar.sidebar-open{transform:translateX(0)}
+ .main{margin-left:0}
+ .sidebar-backdrop{display:block;position:fixed;inset:0;background:#102d1f66;border:0;z-index:3}
+ .mobile-menu{display:inline-grid;place-items:center;width:36px;height:36px;border:1px solid var(--bp-line);border-radius:9px;background:#fff;color:var(--bp-green)}
+ .topbar{padding:0 14px}
+ .topbar-left>span{font-size:11px}
+ .content{padding:22px 14px 55px}
+}
