@@ -1,5 +1,5 @@
 import React,{useCallback,useEffect,useMemo,useState} from "react";
-import {supabase} from "./lib/supabase";
+import {supabase,SUPABASE_URL} from "./lib/supabase";
 import {LayoutDashboard,Package,Store,Megaphone,Settings,Plus,Search,AlertTriangle,Boxes,TrendingUp,ArrowUpRight,Sparkles,Copy,Download,LogOut,RefreshCw,ClipboardList,Brain,ExternalLink,CheckCircle,Menu,X} from "lucide-react";
 
 const money=k=>"₦"+(Number(k||0)/100).toLocaleString("en-NG",{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -9,7 +9,7 @@ const statuses=["pending","confirmed","processing","shipped","completed","cancel
 
 function PublicShop({slug}) {
  const [data,setData]=useState(null),[cart,setCart]=useState({}),[customer,setCustomer]=useState({name:"",phone:"",email:"",address:"",note:""}),[busy,setBusy]=useState(false),[message,setMessage]=useState("");
- const endpoint=(supabase?.supabaseUrl||"").replace(/\/$/,"")+"/functions/v1/public-store";
+ const endpoint=SUPABASE_URL.replace(/\/$/,"")+"/functions/v1/public-store";
  useEffect(()=>{fetch(endpoint+"?slug="+encodeURIComponent(slug)).then(r=>r.json()).then(setData).catch(()=>setMessage("Could not load this shop."))},[slug]);
  const items=Object.entries(cart).filter(([,q])=>q>0).map(([id,q])=>({product_id:id,quantity:q}));
  const total=(data?.products||[]).reduce((s,p)=>s+(cart[p.id]||0)*Number(p.price_kobo),0);
